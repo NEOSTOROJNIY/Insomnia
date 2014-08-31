@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report>
+  <date>June 22, 2013, 7:40 pm</date>
+  <resource>
+    <addrdata>
+      <urladdr>http://www.tests-tests.ru/</urladdr>
+      <ipaddr>77.222.57.95</ipaddr>
+    </addrdata>
+    <serverbanner>Apache/2.0.63-lk.e (Unix) mod_ssl/2.0.63-lk.e OpenSSL/0.9.8d mod_dp/lk.0.20.1 PHP/5.2.9</serverbanner>
+  </resource>
+  <securitylevel>3</securitylevel>
+  <testedvulnerabilities>
+    <vulnerability security_level="3">XSS</vulnerability>
+  </testedvulnerabilities>
+  <scandetails>
+    <xsstestdetails>
+      <notvulnerable>is not vulnerable</notvulnerable>
+    </xsstestdetails>
+  </scandetails>
+</report>

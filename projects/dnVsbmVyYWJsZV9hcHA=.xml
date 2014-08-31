@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project><tasks><task url="http://localhost/testapps/vulnerable_app.php?id=1"><assignedtosqli>true</assignedtosqli><assignedtoxss>true</assignedtoxss></task></tasks></project>

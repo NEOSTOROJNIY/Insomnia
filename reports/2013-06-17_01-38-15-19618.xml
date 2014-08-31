@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report>
+  <date>June 17, 2013, 1:38 am</date>
+  <resource>
+    <addrdata>
+      <urladdr>http://localhost/testapps/notvulnerable_app.php?id=1</urladdr>
+      <ipaddr>127.0.0.1</ipaddr>
+    </addrdata>
+    <serverbanner>Apache/2.4.3 (Win32) PHP/5.4.12</serverbanner>
+  </resource>
+  <securitylevel>3</securitylevel>
+  <testedvulnerabilities>
+    <vulnerability security_level="3">XSS</vulnerability>
+    <vulnerability security_level="3">SQL Injection</vulnerability>
+  </testedvulnerabilities>
+  <scandetails>
+    <xsstestdetails>
+      <notvulnerable>is not vulnerable</notvulnerable>
+    </xsstestdetails>
+    <sqlinjtestdetails>
+      <notvulnerable>is not vulnerable</notvulnerable>
+    </sqlinjtestdetails>
+  </scandetails>
+</report>
